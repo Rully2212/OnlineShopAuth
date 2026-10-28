@@ -1,34 +1,34 @@
-# Online Shop Auth (Tugas 1)
+# Online Shop Auth (Assignment 1)
 
-Proyek Android Kotlin untuk Register, Login, Auto-Login, dashboard berdasarkan role, profil, dan Logout. Pola kode: **MVVM + Repository**. API diakses dengan Retrofit2 + Gson + Coroutines, layar menggunakan ViewBinding, dan sesi (`token`, `username`, `role`) disimpan di SharedPreferences.
+An Android app written in Kotlin for registration, login, automatic login, role-based dashboards, profiles, and logout. The project follows the **MVVM + Repository** pattern. It uses Retrofit 2, Gson, and Coroutines to access the REST API; ViewBinding for the UI; and SharedPreferences to store the session (`token`, `username`, and `role`).
 
-## Menjalankan
+## Getting started
 
-1. Buka folder ini di Android Studio dan tunggu Gradle Sync.
-2. Pastikan Android SDK API 35 terpasang. Proyek memerlukan JDK 17 dan Gradle 8.13 (wrapper sudah disediakan).
-3. Jalankan di emulator atau perangkat Android dengan akses internet.
-4. Base URL ada di `app/build.gradle.kts`: `https://pasarrakyatbangetayukulon.my.id/OnlineShop/`. Jika memakai XAMPP lokal pada Android Emulator, ubah ke `http://10.0.2.2/OnlineShop/` dan aktifkan HTTP cleartext untuk pengembangan lokal saja.
+1. Open this project in Android Studio and wait for Gradle Sync to finish.
+2. Install Android SDK API 35. The project requires JDK 17 and uses the included Gradle 8.13 wrapper.
+3. Run the app on an emulator or Android device with internet access.
+4. The base URL is defined in `app/build.gradle.kts`: `https://pasarrakyatbangetayukulon.my.id/OnlineShop/`. For a local XAMPP server on the Android Emulator, change it to `http://10.0.2.2/OnlineShop/` and enable cleartext HTTP traffic for local development only.
 
-Endpoint hosting telah diperiksa pada 28 Oktober 2026: `POST /OnlineShop/auth/login.php` tanpa data memberi HTTP 400 dengan envelope JSON dari backend. Domain tanpa jalur `/OnlineShop/` memberi 404.
+The hosted endpoint was checked on October 28, 2026: `POST /OnlineShop/auth/login.php` without form data returned HTTP 400 with the backend's JSON response. The domain without the `/OnlineShop/` path returned 404.
 
-## Alur aplikasi
+## Authentication flow
 
-- Splash memeriksa apakah `token`, `username`, dan `role` lengkap di SharedPreferences. Role `admin` menuju AdminDashboardActivity, role `user` menuju UserDashboardActivity, selain itu menuju LoginActivity.
-- Login mengirim form `username` dan `password` ke `auth/login.php`, lalu menyimpan data sesi dari respons.
-- Register mengirim `username`, `email`, `alamat`, `no_whatsapp`, dan `password` ke `auth/register.php`. Backend tidak memberi token saat register, sehingga aplikasi melakukan login otomatis setelah register berhasil.
-- Logout mengirim Bearer token ke `auth/logout.php`, menghapus semua data sesi lokal, lalu kembali ke LoginActivity. Sesi lokal tetap dihapus jika server tidak dapat dihubungi.
+- **Splash:** Checks whether the saved `token`, `username`, and `role` are complete. An `admin` session opens `AdminDashboardActivity`; a `user` session opens `UserDashboardActivity`; otherwise, the app opens `LoginActivity`.
+- **Login:** Sends `username` and `password` to `auth/login.php`, then saves the session data from the response.
+- **Register:** Sends `username`, `email`, `alamat`, `no_whatsapp`, and `password` to `auth/register.php`. The backend does not return a token after registration, so the app logs in automatically after a successful registration.
+- **Logout:** Sends the Bearer token to `auth/logout.php`, clears the local session, and returns to `LoginActivity`. The local session is still cleared if the server cannot be reached.
 
-## Lokasi kode untuk screenshot laporan
+## Key source files
 
-- `app/src/main/java/com/example/onlineshopauth/data/ApiService.kt` — definisi endpoint Retrofit.
-- `app/src/main/java/com/example/onlineshopauth/data/AuthRepository.kt` — respons API dan penanganan error.
-- `app/src/main/java/com/example/onlineshopauth/ui/AuthViewModel.kt` — login, register, logout dengan Coroutines.
-- `app/src/main/java/com/example/onlineshopauth/data/SessionManager.kt` dan `app/src/main/java/com/example/onlineshopauth/ui/SessionRouter.kt` — SharedPreferences dan role routing.
+- `app/src/main/java/com/example/onlineshopauth/data/ApiService.kt` - Retrofit endpoint definitions.
+- `app/src/main/java/com/example/onlineshopauth/data/AuthRepository.kt` - API response handling and error validation.
+- `app/src/main/java/com/example/onlineshopauth/ui/AuthViewModel.kt` - Login, registration, and logout with Coroutines.
+- `app/src/main/java/com/example/onlineshopauth/data/SessionManager.kt` and `app/src/main/java/com/example/onlineshopauth/ui/SessionRouter.kt` - Session storage and role-based navigation.
 
-## Checklist laporan PDF
+## Report evidence
 
-Isi identitas **Nama dan NIM**, lalu lampirkan screenshot kode di atas dan screenshot aplikasi berjalan untuk: Splash Screen, Register, Login, Dashboard Admin, Dashboard User, dan Logout (profil sebelum dan layar Login sesudah logout). Semua screenshot running harus diambil dari emulator atau perangkat yang menjalankan aplikasi ini.
+The accompanying report includes code screenshots and emulator captures of the splash screen, registration and login screens, user profile, admin dashboard and profile, and the login screen after logout.
 
-## Catatan backend
+## Backend
 
-Sumber API: <https://github.com/NandaAdisaputra/BackendOnlineShop>. Register selalu membuat akun `user`. Akun `admin` harus sudah tersedia di database backend. Source backend mencantumkan contoh kredensial admin di dokumentasinya; gunakan hanya pada server yang memang Anda kelola atau yang diizinkan dosen.
+REST API source: <https://github.com/NandaAdisaputra/BackendOnlineShop>. Registration always creates a `user` account. An `admin` account must already exist in the backend database. The backend documentation includes example admin credentials; use them only on a server you manage or are authorized to access.
