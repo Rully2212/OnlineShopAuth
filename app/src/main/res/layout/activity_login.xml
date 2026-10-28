@@ -29,13 +29,13 @@
                 android:id="@+id/usernameInput"
                 style="@style/InputField"
                 android:layout_marginTop="20dp"
-                android:hint="Masukkan Username"
+                android:hint="Enter username"
                 android:inputType="textPersonName"
                 android:singleLine="true" />
             <EditText
                 android:id="@+id/passwordInput"
                 style="@style/InputField"
-                android:hint="Masukkan Password"
+                android:hint="Enter password"
                 android:inputType="textPassword"
                 android:singleLine="true" />
             <TextView
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:text="Belum punya akun? Daftar di sini"
+                android:text="No account yet? Register here"
                 android:textColor="@color/brand_red_dark"
                 android:textSize="13sp" />
         </LinearLayout>

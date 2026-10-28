@@ -6,6 +6,7 @@
         android:label="Online Shop"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineShopAuth">
+        <activity android:name=".ui.ProductDetailActivity" android:exported="false" />
         <activity android:name=".ui.ProfileActivity" android:exported="false" />
         <activity android:name=".ui.UserDashboardActivity" android:exported="false" />
         <activity android:name=".ui.AdminDashboardActivity" android:exported="false" />

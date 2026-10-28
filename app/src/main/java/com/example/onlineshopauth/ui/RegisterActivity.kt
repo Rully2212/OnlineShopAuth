@@ -25,9 +25,9 @@ class RegisterActivity : AppCompatActivity() {
             val password = binding.passwordInput.text.toString()
             when {
                 listOf(username, email, address, whatsapp, password).any { it.isBlank() } ->
-                    showError("Semua kolom wajib diisi.")
+                    showError("All fields are required.")
                 !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() ->
-                    showError("Format email tidak valid.")
+                    showError("Please enter a valid email address.")
                 else -> {
                     binding.errorText.isVisible = false
                     viewModel.registerAndLogin(username, email, address, whatsapp, password)

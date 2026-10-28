@@ -17,7 +17,7 @@ class AdminDashboardActivity : AppCompatActivity() {
         }
         val binding = ActivityAdminDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.greetingText.text = "Halo, ${session.username}"
+        binding.greetingText.text = "Hello, ${session.username}"
         binding.profileButton.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
         }

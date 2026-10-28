@@ -29,31 +29,31 @@
                 android:id="@+id/usernameInput"
                 style="@style/InputField"
                 android:layout_marginTop="16dp"
-                android:hint="Masukkan Username"
+                android:hint="Enter username"
                 android:inputType="textPersonName"
                 android:singleLine="true" />
             <EditText
                 android:id="@+id/emailInput"
                 style="@style/InputField"
-                android:hint="Masukkan Email"
+                android:hint="Enter email"
                 android:inputType="textEmailAddress"
                 android:singleLine="true" />
             <EditText
                 android:id="@+id/addressInput"
                 style="@style/InputField"
-                android:hint="Masukkan Alamat"
+                android:hint="Enter address"
                 android:inputType="textPostalAddress"
                 android:singleLine="true" />
             <EditText
                 android:id="@+id/whatsappInput"
                 style="@style/InputField"
-                android:hint="Masukkan No WhatsApp"
+                android:hint="Enter WhatsApp number"
                 android:inputType="phone"
                 android:singleLine="true" />
             <EditText
                 android:id="@+id/passwordInput"
                 style="@style/InputField"
-                android:hint="Masukkan Password"
+                android:hint="Enter password"
                 android:inputType="textPassword"
                 android:singleLine="true" />
             <TextView
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:text="Sudah punya akun? Login di sini"
+                android:text="Already have an account? Log in here"
                 android:textColor="@color/brand_red_dark"
                 android:textSize="13sp" />
         </LinearLayout>

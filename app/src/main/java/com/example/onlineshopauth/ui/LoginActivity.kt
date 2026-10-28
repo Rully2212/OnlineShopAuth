@@ -22,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
             val username = binding.usernameInput.text.toString().trim()
             val password = binding.passwordInput.text.toString()
             if (username.isBlank() || password.isBlank()) {
-                showError("Username dan password wajib diisi.")
+                showError("Username and password are required.")
             } else {
                 binding.errorText.isVisible = false
                 viewModel.login(username, password)

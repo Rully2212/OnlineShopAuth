@@ -12,7 +12,7 @@ class AuthRepository(private val service: ApiService) {
     suspend fun login(username: String, password: String): AuthData {
         val data = requireData(service.login(username, password))
         if (data.token.isNullOrBlank() || data.role !in setOf("admin", "user")) {
-            throw ApiException("Respons login tidak memiliki token atau role yang valid.")
+            throw ApiException("The login response has no valid token or role.")
         }
         return data
     }
@@ -32,7 +32,7 @@ class AuthRepository(private val service: ApiService) {
         if (!response.isSuccessful || response.body()?.status != true) {
             throw ApiException(errorMessage(response))
         }
-        return response.body()?.data ?: throw ApiException("Data respons server kosong.")
+        return response.body()?.data ?: throw ApiException("The server returned no data.")
     }
 
     private fun <T> errorMessage(response: Response<ApiEnvelope<T>>): String {
@@ -40,9 +40,9 @@ class AuthRepository(private val service: ApiService) {
         return try {
             val raw = response.errorBody()?.string().orEmpty()
             JsonParser.parseString(raw).asJsonObject.get("message")?.asString
-                ?: "Permintaan gagal (HTTP ${response.code()})."
+                ?: "Request failed (HTTP ${response.code()})."
         } catch (_: Exception) {
-            "Permintaan gagal (HTTP ${response.code()})."
+            "Request failed (HTTP ${response.code()})."
         }
     }
 

@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
         android:gravity="center"
-        android:text="Ini Dashboard Admin"
+        android:text="Admin Dashboard"
         android:textColor="@color/brand_red"
         android:textSize="32sp"
         android:textStyle="bold" />
@@ -26,5 +26,5 @@
         style="@style/PrimaryButton"
         android:layout_width="180dp"
         android:layout_marginTop="46dp"
-        android:text="Profil" />
+        android:text="Profile" />
 </LinearLayout>

@@ -8,9 +8,9 @@ class SessionManager(context: Context) {
     private val preferences = context.applicationContext.getSharedPreferences("auth_session", Context.MODE_PRIVATE)
 
     fun save(data: AuthData) {
-        val token = data.token?.takeIf { it.isNotBlank() } ?: throw ApiException("Token kosong.")
-        if (data.username.isBlank()) throw ApiException("Username kosong.")
-        if (data.role !in setOf("admin", "user")) throw ApiException("Role tidak dikenal.")
+        val token = data.token?.takeIf { it.isNotBlank() } ?: throw ApiException("Token is missing.")
+        if (data.username.isBlank()) throw ApiException("Username is missing.")
+        if (data.role !in setOf("admin", "user")) throw ApiException("Unknown role.")
         preferences.edit()
             .putString("token", token)
             .putString("username", data.username)

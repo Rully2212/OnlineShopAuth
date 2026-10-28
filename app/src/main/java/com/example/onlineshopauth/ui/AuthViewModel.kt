@@ -29,7 +29,7 @@ class AuthViewModel(
             sessionManager.save(repository.login(username, password))
             _event.value = AuthEvent.Authenticated
         } catch (e: Exception) {
-            _event.value = AuthEvent.Error(e.message ?: "Login gagal. Coba lagi.")
+            _event.value = AuthEvent.Error(e.message ?: "Login failed. Please try again.")
         }
     }
 
@@ -39,11 +39,11 @@ class AuthViewModel(
         _event.value = AuthEvent.Loading
         try {
             repository.register(username, email, address, whatsapp, password)
-            // Register tidak mengembalikan token. Login untuk membuat sesi.
+            // Registration does not return a token, so log in to create a session.
             sessionManager.save(repository.login(username, password))
             _event.value = AuthEvent.Authenticated
         } catch (e: Exception) {
-            _event.value = AuthEvent.Error(e.message ?: "Registrasi gagal. Coba login jika akun sudah dibuat.")
+            _event.value = AuthEvent.Error(e.message ?: "Registration failed. Try logging in if the account was created.")
         }
     }
 
@@ -53,7 +53,7 @@ class AuthViewModel(
         try {
             if (token != null) repository.logout(token)
         } catch (_: Exception) {
-            // Sesi lokal tetap dihapus ketika server tidak dapat dihubungi.
+            // Clear the local session even when the server is unreachable.
         } finally {
             sessionManager.clear()
             _event.value = AuthEvent.LoggedOut

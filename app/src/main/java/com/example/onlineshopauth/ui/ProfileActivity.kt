@@ -21,7 +21,7 @@ class ProfileActivity : AppCompatActivity() {
         }
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.titleText.text = if (session.role == "admin") "Profil Admin" else "Profil User"
+        binding.titleText.text = if (session.role == "admin") "Admin Profile" else "User Profile"
         binding.usernameText.text = session.username
         binding.roleText.text = "Role: ${session.role}"
         binding.logoutButton.setOnClickListener { viewModel.logout() }
