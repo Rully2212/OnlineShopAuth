@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/brand_red">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="24dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card"
+            android:elevation="8dp"
+            android:orientation="vertical"
+            android:padding="22dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="REGISTER"
+                android:textColor="@color/brand_red"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/usernameInput"
+                style="@style/InputField"
+                android:layout_marginTop="16dp"
+                android:hint="Masukkan Username"
+                android:inputType="textPersonName"
+                android:singleLine="true" />
+            <EditText
+                android:id="@+id/emailInput"
+                style="@style/InputField"
+                android:hint="Masukkan Email"
+                android:inputType="textEmailAddress"
+                android:singleLine="true" />
+            <EditText
+                android:id="@+id/addressInput"
+                style="@style/InputField"
+                android:hint="Masukkan Alamat"
+                android:inputType="textPostalAddress"
+                android:singleLine="true" />
+            <EditText
+                android:id="@+id/whatsappInput"
+                style="@style/InputField"
+                android:hint="Masukkan No WhatsApp"
+                android:inputType="phone"
+                android:singleLine="true" />
+            <EditText
+                android:id="@+id/passwordInput"
+                style="@style/InputField"
+                android:hint="Masukkan Password"
+                android:inputType="textPassword"
+                android:singleLine="true" />
+            <TextView
+                android:id="@+id/errorText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/brand_red_dark"
+                android:visibility="gone" />
+            <Button
+                android:id="@+id/registerButton"
+                style="@style/PrimaryButton"
+                android:text="REGISTER" />
+            <TextView
+                android:id="@+id/loginLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="Sudah punya akun? Login di sini"
+                android:textColor="@color/brand_red_dark"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
