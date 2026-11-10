@@ -35,6 +35,9 @@ class UserDashboardActivity : AppCompatActivity() {
         binding.profileButton.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
+        binding.cartButton.setOnClickListener {
+            startActivity(Intent(this, CartActivity::class.java))
+        }
 
         val productAdapter = ProductAdapter { product ->
             startActivity(Intent(this, ProductDetailActivity::class.java).apply {

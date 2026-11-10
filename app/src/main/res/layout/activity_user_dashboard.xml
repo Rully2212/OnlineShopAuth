@@ -22,9 +22,16 @@
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/cartButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="Cart" />
+
+        <Button
             android:id="@+id/profileButton"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
+            android:layout_marginStart="6dp"
             android:text="Profile" />
     </LinearLayout>
 

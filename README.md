@@ -18,7 +18,7 @@ The hosted endpoint was checked on October 28, 2026: `POST /OnlineShop/auth/logi
 - **Register:** Sends `username`, `email`, `alamat`, `no_whatsapp`, and `password` to `auth/register.php`. The backend does not return a token after registration, so the app logs in automatically after a successful registration.
 - **Logout:** Sends the Bearer token to `auth/logout.php`, clears the local session, and returns to `LoginActivity`. The local session is still cleared if the server cannot be reached.
 
-## Meeting 2: product catalog
+## Meeting 3: product catalog
 
 After signing in as a `user`, the dashboard displays products in pages of five. Scroll down to load the next page. Enter a keyword and tap **Search** (or press the keyboard search action) to search product names and descriptions. Clearing the search field restores the full list. Tap a product to open its detail page with its image, price, description, and creation date.
 
@@ -32,6 +32,20 @@ These requests use the saved session token in the `Authorization: Bearer <token>
 
 The catalog displays loading, empty, and error states. A **Retry** button appears when a request fails. Product images are loaded with Glide.
 
+## Meeting 4: profile and shopping cart
+
+The profile screen can update the signed-in user's username and optionally change the password. A password change requires both the current password and a new password of at least six characters. After a successful username update, the saved local session is refreshed without discarding its active token.
+
+On a product detail screen, choose a quantity and tap **Add to Cart**. The **Cart** button on the user dashboard opens the current user's order list with product images, quantities, subtotals, total item count, and grand total. Loading, empty, and retryable error states are included.
+
+All Meeting 4 requests also use `Authorization: Bearer <token>`:
+
+| Feature | Endpoint | Form fields |
+| --- | --- | --- |
+| Edit profile | `POST auth/update-profile.php` | `username`, `old_password`, `new_password` |
+| Add to cart | `POST cart/add.php` | `product_id`, `quantity` |
+| List cart orders | `GET cart/listpesanan.php` | none |
+
 ## Key source files
 
 - `app/src/main/java/com/example/onlineshopauth/data/ApiService.kt` - Retrofit endpoint definitions.
@@ -41,6 +55,8 @@ The catalog displays loading, empty, and error states. A **Retry** button appear
 - `app/src/main/java/com/example/onlineshopauth/data/ProductModels.kt` and `ProductRepository.kt` - Product API models and requests.
 - `app/src/main/java/com/example/onlineshopauth/ui/ProductViewModel.kt` and `ProductDetailViewModel.kt` - Catalog and detail screen state.
 - `app/src/main/java/com/example/onlineshopauth/ui/ProductAdapter.kt`, `UserDashboardActivity.kt`, and `ProductDetailActivity.kt` - Product list, search, pagination, and detail UI.
+- `app/src/main/java/com/example/onlineshopauth/data/CartModels.kt` and `CartRepository.kt` - Cart response models and Bearer-authenticated cart requests.
+- `app/src/main/java/com/example/onlineshopauth/ui/AddToCartViewModel.kt`, `CartViewModel.kt`, `CartActivity.kt`, and `CartAdapter.kt` - Checkout-to-cart flow and cart order list.
 
 ## Meeting 1 report evidence
 

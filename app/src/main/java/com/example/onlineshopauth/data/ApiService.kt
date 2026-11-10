@@ -46,6 +46,15 @@ interface ApiService {
     @POST("auth/logout.php")
     suspend fun logout(@Header("Authorization") authorization: String): Response<ApiEnvelope<Unit>>
 
+    @FormUrlEncoded
+    @POST("auth/update-profile.php")
+    suspend fun updateProfile(
+        @Header("Authorization") authorization: String,
+        @Field("username") username: String,
+        @Field("old_password") oldPassword: String,
+        @Field("new_password") newPassword: String
+    ): Response<ApiEnvelope<AuthData>>
+
     @GET("products/listproduct.php")
     suspend fun listProducts(
         @Header("Authorization") authorization: String,
@@ -64,4 +73,17 @@ interface ApiService {
         @Header("Authorization") authorization: String,
         @Query("id") productId: Int
     ): Response<ApiEnvelope<ProductItem>>
+
+    @FormUrlEncoded
+    @POST("cart/add.php")
+    suspend fun addToCart(
+        @Header("Authorization") authorization: String,
+        @Field("product_id") productId: Int,
+        @Field("quantity") quantity: Int
+    ): Response<ApiEnvelope<CartAddData>>
+
+    @GET("cart/listpesanan.php")
+    suspend fun cartList(
+        @Header("Authorization") authorization: String
+    ): Response<ApiEnvelope<CartSummary>>
 }

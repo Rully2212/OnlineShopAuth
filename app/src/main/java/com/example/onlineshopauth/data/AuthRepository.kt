@@ -28,6 +28,15 @@ class AuthRepository(private val service: ApiService) {
         }
     }
 
+    suspend fun updateProfile(
+        token: String,
+        username: String,
+        oldPassword: String,
+        newPassword: String
+    ): AuthData = requireData(
+        service.updateProfile("Bearer $token", username, oldPassword, newPassword)
+    )
+
     private fun <T> requireData(response: Response<ApiEnvelope<T>>): T {
         if (!response.isSuccessful || response.body()?.status != true) {
             throw ApiException(errorMessage(response))

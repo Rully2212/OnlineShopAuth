@@ -23,19 +23,62 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.titleText.text = if (session.role == "admin") "Admin Profile" else "User Profile"
         binding.usernameText.text = session.username
+        binding.usernameInput.setText(session.username)
         binding.roleText.text = "Role: ${session.role}"
+        binding.backButton.setOnClickListener { finish() }
+        binding.saveButton.setOnClickListener { submitProfile() }
         binding.logoutButton.setOnClickListener { viewModel.logout() }
         viewModel.event.observe(this) { event ->
             when (event) {
-                AuthEvent.Loading -> binding.logoutButton.isEnabled = false
+                AuthEvent.Loading -> showLoading(true)
                 AuthEvent.LoggedOut -> SessionRouter.openLogin(this)
+                is AuthEvent.ProfileUpdated -> {
+                    showLoading(false)
+                    binding.usernameText.text = event.username
+                    binding.usernameInput.setText(event.username)
+                    binding.oldPasswordInput.text?.clear()
+                    binding.newPasswordInput.text?.clear()
+                    binding.errorText.isVisible = false
+                    binding.successText.text = event.message
+                    binding.successText.isVisible = true
+                }
                 is AuthEvent.Error -> {
-                    binding.logoutButton.isEnabled = true
+                    showLoading(false)
+                    binding.successText.isVisible = false
                     binding.errorText.text = event.message
                     binding.errorText.isVisible = true
                 }
                 else -> Unit
             }
         }
+    }
+
+    private fun submitProfile() {
+        val username = binding.usernameInput.text.toString().trim()
+        val oldPassword = binding.oldPasswordInput.text.toString()
+        val newPassword = binding.newPasswordInput.text.toString()
+        binding.successText.isVisible = false
+        binding.errorText.isVisible = false
+
+        val error = when {
+            username.isBlank() -> "Username is required."
+            oldPassword.isBlank() != newPassword.isBlank() ->
+                "Enter both the current password and the new password."
+            newPassword.isNotBlank() && newPassword.length < 6 ->
+                "The new password must contain at least 6 characters."
+            else -> null
+        }
+        if (error != null) {
+            binding.errorText.text = error
+            binding.errorText.isVisible = true
+            return
+        }
+        viewModel.updateProfile(username, oldPassword, newPassword)
+    }
+
+    private fun showLoading(loading: Boolean) {
+        binding.loadingBar.isVisible = loading
+        binding.saveButton.isEnabled = !loading
+        binding.logoutButton.isEnabled = !loading
     }
 }

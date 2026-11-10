@@ -27,6 +27,11 @@ class SessionManager(context: Context) {
         } else null
     }
 
+    fun updateUsername(username: String) {
+        require(username.isNotBlank()) { "Username must not be blank." }
+        preferences.edit().putString("username", username).commit()
+    }
+
     fun clear() {
         preferences.edit().clear().commit()
     }

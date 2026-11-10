@@ -13,6 +13,7 @@ sealed class AuthEvent {
     data object Loading : AuthEvent()
     data object Authenticated : AuthEvent()
     data object LoggedOut : AuthEvent()
+    data class ProfileUpdated(val username: String, val message: String) : AuthEvent()
     data class Error(val message: String) : AuthEvent()
 }
 
@@ -57,6 +58,30 @@ class AuthViewModel(
         } finally {
             sessionManager.clear()
             _event.value = AuthEvent.LoggedOut
+        }
+    }
+
+    fun updateProfile(username: String, oldPassword: String, newPassword: String) = viewModelScope.launch {
+        val session = sessionManager.current()
+        if (session == null) {
+            _event.value = AuthEvent.Error("Your session has ended. Please sign in again.")
+            return@launch
+        }
+        _event.value = AuthEvent.Loading
+        try {
+            val updated = repository.updateProfile(
+                session.token,
+                username.trim(),
+                oldPassword,
+                newPassword
+            )
+            sessionManager.updateUsername(updated.username)
+            _event.value = AuthEvent.ProfileUpdated(
+                updated.username,
+                "Profile updated successfully."
+            )
+        } catch (e: Exception) {
+            _event.value = AuthEvent.Error(e.message ?: "Could not update profile.")
         }
     }
 }
